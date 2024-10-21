@@ -1,0 +1,61 @@
+---
+- name: Setup EC2 instances
+  hosts: ec2_instances
+  become: true
+
+  tasks:
+    - name: Ensure required packages are installed
+      yum:
+        name:
+          - bzip2
+          - perl
+        state: present
+
+    - name: Add Google Chrome repository
+      yum_repository:
+        name: google-chrome
+        description: Google Chrome Repository
+        baseurl: http://dl.google.com/linux/chrome/rpm/stable/$basearch
+        enabled: yes
+        gpgcheck: yes
+        gpgkey: https://dl.google.com/linux/linux_signing_key.pub
+
+    - name: Install Google Chrome
+      yum:
+        name: google-chrome-stable
+        state: present
+
+    - name: Start Chrome (in headless mode)
+      shell: nohup google-chrome --headless --no-sandbox > /dev/null 2>&1 &
+
+
+    - name: Download tgz file
+      get_url:
+        url: http://www.sbeams.org/sample_data/Microarray/External_test_data.tar.gz
+        dest: /var/tmp
+
+    - name: Untar the downloaded file
+      unarchive:
+        src: /var/tmp/External_test_data.tar.gz
+        dest: /var/tmp
+        remote_src: yes
+
+    - name: Remove the original tar.gz file
+      file:
+        path: /var/tmp/External_test_data.tar.gz
+        state: absent
+
+    - name: Backup /etc/hosts
+      copy:
+        src: /etc/hosts
+        dest: /etc/hosts.bak
+
+    - name: Update /etc/hosts
+      lineinfile:
+        path: /etc/hosts
+        line: "{{ item }}"
+        state: present
+      loop:
+        - "1.2.3.4 host1"
+        - "3.4.2.1 host2"
+        - "5.6.3.2 host3"

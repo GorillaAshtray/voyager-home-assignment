@@ -100,6 +100,20 @@ resource "aws_security_group" "allow_ssh" {
     cidr_blocks = ["0.0.0.0/0"] # Open to all IPs
   }
 
+  ingress {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 0
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   egress {
     from_port   = 0
     to_port     = 0
@@ -115,9 +129,9 @@ resource "aws_network_interface_sg_attachment" "sg_attachment" {
   network_interface_id = element(aws_instance.ec2_instances.*.primary_network_interface_id, count.index)
 }
 
-output "instance_public_ips" {
-  value = aws_instance.ec2_instances.*.public_ip
-}
+# output "instance_public_ips" {
+#   value = aws_instance.ec2_instances.*.public_ip
+# }
 
 output "elastic_ips" {
   value = aws_eip.elastic_ip.*.public_ip
