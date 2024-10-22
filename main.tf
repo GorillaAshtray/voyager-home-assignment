@@ -69,7 +69,7 @@ resource "aws_eip" "elastic_ip" {
 
 resource "aws_key_pair" "dev_key" {
   key_name   = "dev-key"
-  public_key = file("./keys/id_rsa.pub") # Path to SSH public key
+  public_key = file("./.keys/id_rsa.pub") # Path to SSH public key
 }
 
 resource "aws_security_group" "allow_ssh" {
