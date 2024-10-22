@@ -1,10 +1,11 @@
 import json
 import os
 
-# Path to the Terraform output file
-output_file = 'terraform_outputs.json'
-# Path to the hosts.ini file
-hosts_file = 'hosts.ini'
+TF_DIR="init-ec2s"
+ANSIBLE_INVENTORY_DIR="configure-ec2s/inventory"
+
+output_file = f'{TF_DIR}/terraform_outputs.json' # Path to the Terraform output file
+hosts_file = f'{ANSIBLE_INVENTORY_DIR}/hosts.ini' # Path to the hosts.ini file
 
 # Load Terraform outputs
 try:
@@ -22,7 +23,7 @@ if len(ec2_instance_ips) < 2:
     print("Not enough IPs available to update the hosts file.")
     exit(1)
 
-# Prepare new hosts entries
+# Prepare new hosts entries with the correct ansible hosts file format
 new_hosts_entries = [
     f"ec2_instance_1 ansible_host={ec2_instance_ips[0]}\n",
     f"ec2_instance_2 ansible_host={ec2_instance_ips[1]}\n"
