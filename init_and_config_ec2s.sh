@@ -15,7 +15,7 @@ terraform output -json > "terraform_outputs.json"
 cd ..
 
 # Run python script that changes the hosts IP
-python3 ./scripts/update_hosts.py
+python3 ./scripts/update_ansible_hosts_file.py 
 
 # Run ansible playbook 
 cd $ANSIBLE_DIR
