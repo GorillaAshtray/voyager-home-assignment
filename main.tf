@@ -5,7 +5,7 @@ provider "aws" {
 resource "aws_instance" "ec2_instances" {
   count         = 2
   ami           = "ami-0583d8c7a9c35822c" # RHEL CentOS AMI
-  instance_type = "t2.micro" # Small instance type
+  instance_type = "t3.medium" # instance type (smallest type that still has enough resources to run minikube)
 
   key_name      = aws_key_pair.dev_key.key_name
 

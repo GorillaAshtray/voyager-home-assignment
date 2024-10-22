@@ -4,7 +4,7 @@
   become: true
 
   tasks:
-    - name: Ensure required packages are installed
+    - name: Install required packages are installed
       yum:
         name:
           - bzip2
