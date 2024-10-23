@@ -41,11 +41,11 @@ updated_hosts = []
 in_ec2_section = False
 
 for line in existing_hosts:
-    # If we enter the [ec2_instances] section
+    # If we enter the [ec2_instances] section in the hosts.ini file
     if line.strip() == "[ec2_instances]":
         in_ec2_section = True
         updated_hosts.append(line)  # Add the section header
-        updated_hosts.extend(new_hosts_entries)  # Add new entries
+        updated_hosts.extend(new_hosts_entries)  # Add new IP entries
         continue  # Skip to the next line
 
     # If we exit the [ec2_instances] section
