@@ -71,3 +71,10 @@
    Find out the node's IP address and port of the Apache server:
 
    `minikube ip`
+   `kubectl get svc`
+
+   Now curl to the apache server from the ec2-user terminal:
+   `curl http://NODE_IP:NODE_PORT`
+
+   You should get:
+   `<html><body><h1>It works!</h1></body></html>`
