@@ -58,6 +58,7 @@
    Afterwards, ssh into the node and run the following commands inside the node to install minikube:
 
    `ssh -i ./.keys/id_rsa ec2-user@NODE_IP`
+   
    `cd /home/ec2-user`  
    `chmod u+x install_minikube.sh`  
    `./install_minikube.sh`
