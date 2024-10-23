@@ -48,7 +48,12 @@
 7. **To deploy an Apache server to one of the nodes**:  
    First, you need to install Minikube on it. Pick a random node and proceed to SCP the minikube installation script, remembering to use the private key in the `.keys` directory:
 
-   `scp -i ./.keys/id_rsa ./scripts/install_minikube.sh ec2-user@NODE_IP:/home/ec2-user`  
+   `scp -i ./.keys/id_rsa ./scripts/install_minikube.sh ec2-user@NODE_IP:/home/ec2-user`
+
+   Now, you will need to SCP the apache-server deployment and service files:
+
+   `scp -r -i ./.keys/id_rsa ./apache-kubernetes ec2-user@NODE_IP:/home/ec2-user`
+
 
    Afterwards, ssh into the node and run the following commands inside the node to install minikube:
 
