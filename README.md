@@ -64,6 +64,7 @@
    `./install_minikube.sh`
 
    Then start the cluster:
+   
    `minikube start --driver=docker`
    
    `alias kubectl="minikube kubectl --"`
