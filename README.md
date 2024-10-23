@@ -53,6 +53,7 @@
    Afterwards, copy ./scripts/install_minikube.sh and run the following command inside the node to install Minikube:
    
    `scp -i ./.keys/id_rsa ./scripts/install_minikube.sh ec2-user@10.11.12.13:/home/ec2-user`
+   
    `./scripts/install_minikube.sh`
 
    Then, copy the contents of the `./apache-kubernetes` directory into the node and apply the deployment and service files to the node:
