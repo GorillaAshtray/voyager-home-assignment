@@ -75,7 +75,7 @@
    `alias kubectl="minikube kubectl --"`
    
 
-   Then, copy the contents of the `./apache-kubernetes` directory into the node and apply the deployment and service files to the node:
+   Then, apply the apache server deplyoment and service files:
 
    `kubectl apply -f ./apache-kubernetes/apache-deployment.yaml`  
    `kubectl apply -f ./apache-kubernetes/apache-service.yaml`
