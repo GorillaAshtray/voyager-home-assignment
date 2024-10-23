@@ -46,11 +46,17 @@
    `python3 ./scripts/snapshot_ec2.py SNAPSHOT_NAME VOLUME_ID MAXIMUM_SNAPSHOT_OF_VOL_ID`
 
 7. **To deploy an Apache server to one of the nodes**:  
-   First, you need to install Minikube on it. Pick a random node and proceed to SSH into it, remembering to use the private key in the `.keys` directory:
+   First, you need to install Minikube on it. Pick a random node and proceed to SCP the minikube installation script, remembering to use the private key in the `.keys` directory:
 
-   `ssh -i ./.keys/id_rsa ec2-user@10.11.12.13`
+   `scp -i ./.keys/id_rsa ./scripts/install_minikube.sh ec2-user@NODE_IP:/home/ec2-user`  
 
-   Afterwards, copy ./scripts/install_minikube.sh and run the following command inside the node to install Minikube:
+   Afterwards, ssh into the node and run the following commands inside the node to install minikube:
+
+   `ssh -i ./.keys/id_rsa ec2-user@NODE_IP`
+   `cd /home/ec2-user`  
+   `chmod u+x install_minikube.sh`  
+   `./install_minikube.sh`
+
    
    `scp -i ./.keys/id_rsa ./scripts/install_minikube.sh ec2-user@10.11.12.13:/home/ec2-user`
    
