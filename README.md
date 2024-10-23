@@ -16,11 +16,11 @@
 
    `cd ./init_ec2s`  
    `terraform init`
-   `terraform apply -auto-approve`  
+   
+   `terraform apply -auto-approve` (you will be prompted to put in your public key as a CLI argument)
    `terraform output -json > "terraform_outputs.json"`   
    `cd ..`
 
-   (you will be prompted to put in your public key as a CLI argument)
 
    After running these commands, you should have all the services up and running on AWS.
 
