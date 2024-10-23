@@ -4,3 +4,8 @@ variable "aws_region" {
   type        = string
   default     = "us-east-1"  
 }
+
+variable "public_key" {
+  description = "The public key for the EC2 instance"
+  type        = string
+}

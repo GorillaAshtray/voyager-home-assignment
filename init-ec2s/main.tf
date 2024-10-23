@@ -2,6 +2,10 @@ provider "aws" {
   region = var.aws_region
 }
 
+locals {
+  public_key = file("../.keys/id_rsa.pub")  # Specify the path to your public key file
+}
+
 resource "aws_instance" "ec2_instances" {
   count         = 2
   ami           = "ami-0583d8c7a9c35822c" # RHEL CentOS AMI
@@ -17,7 +21,7 @@ resource "aws_instance" "ec2_instances" {
               sudo chown dev:dev /home/dev/.ssh
               sudo chmod 700 /home/dev/.ssh
 
-              echo 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDS7/bMqGK6f0De8aAMU8fquPnnOLRu1/jQQiMyRdb1U7he+gOjGunvZcYA7DGUjGvHGom4mqR+yo8Qb+axzpgQlFZMKdAFnkSxhI/cTXEj40cbapB5AamuroSlQKJnIFw2B5ig5gqOnVw1rA9wykcpYa/iqPfwtSUwD9yQgoZ42J3OHMVZkgtJaNDXpf/dM7F3cbBwGFsor7DWB8LOcpt6jWUMhhYTuLYhbmKHOXMa1J4b/aFjEDvJM/LwP87IoV5PmSVy0ojBgWX5/GASydZyezdypEzghZm+BzR0+Pot559Kla2Lcy3ObIG8SySshWlySaLoMz14jkbee47jkNa1aqH3NfyUTXsalsXVUmpYj8Z9DBsA+wsXbLccf7OIZdSDakGZ5PdaZ/Fu+xggIN5wk4A9XvT49KyLEz9hdLFcB7QcZPi0JSE3fQ6T1Sq23NPsNypT/Dllu4YjTMnaIBX4cbEy5jUlTjpYMzQvFw9ymIbcfGyQ/qflI5OvPjOGN7S+5r7r+7/jNwsIdG5WXLjU1szyff6vrP3EP38I9VAMQ2YSyQUbvrqc+eqbplBCchZiL7NDOLzcQpKtkGS7oqlgwugB9dN1642D/1r09IGnXojRvCPt4o/7S93knlFARC2yXWhaTZsrKo9IqT1wem5PixLQD5PIf0iQGdl0/C8xfw== itayweiss321@gmail.com' | sudo tee -a /home/dev/.ssh/authorized_keys
+              echo '${local.public_key}' | sudo tee -a /home/dev/.ssh/authorized_keys
               sudo chown dev:dev /home/dev/.ssh/authorized_keys
 
               sudo mkfs -t ext4 /dev/xvdf  
