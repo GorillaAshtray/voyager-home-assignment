@@ -3,5 +3,4 @@ init-ec2s/.terraform/
 init-ec2s/terraform.tfstate
 init-ec2s/terraform.tfstate.backup
 init-ec2s/terraform_outputs.json
-.keys/
 
