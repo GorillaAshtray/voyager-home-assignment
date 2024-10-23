@@ -3,6 +3,7 @@
 ## How to Run the Project
 
 1. **Clone the repository**
+   
    `git clone git@github.com:GorillaAshtray/voyager-home-assignment.git`
 
 2. **Generate a pair of SSH keys**  
