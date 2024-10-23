@@ -16,13 +16,13 @@
 
    `cd ./init_ec2s`  
    `terraform init`  
-   `terraform apply -auto-approve`  
+   `terraform apply -auto-approve` (you will be prompted to put in your public key as a CLI argument)
    `terraform output -json > "terraform_outputs.json"`  
    `cd ..`
 
    After running these commands, you should have all the services up and running on AWS.
 
-4. **Configure EC2s on AWS using Ansible**  
+5. **Configure EC2s on AWS using Ansible**  
 
    Before running the actual Ansible playbook, you need to run the `update_ansible_hosts_file.py` script using Python 3. This script ensures that the `hosts.ini` file is updated according to the new public IPs of the EC2 instances.
 
@@ -41,11 +41,11 @@
    `chmod u+x ./init_and_config_ec2s.sh`  
    `./init_and_config_ec2s.sh`
 
-5. **To take a snapshot of an EBS volume, run the following:**
+6. **To take a snapshot of an EBS volume, run the following:**
 
    `python3 ./scripts/snapshot_ec2.py SNAPSHOT_NAME VOLUME_ID MAXIMUM_SNAPSHOT_OF_VOL_ID`
 
-6. **To deploy an Apache server to one of the nodes**:  
+7. **To deploy an Apache server to one of the nodes**:  
    First, you need to install Minikube on it. Pick a random node and proceed to SSH into it, remembering to use the private key in the `.keys` directory:
 
    `ssh -i ./.keys/id_rsa ec2-user@10.11.12.13`
