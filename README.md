@@ -3,7 +3,8 @@
 ## How to Run the Project
 
 1. **Clone the repository**
-   git clone git@github.com:GorillaAshtray/voyager-home-assignment.git
+   
+   `git clone git@github.com:GorillaAshtray/voyager-home-assignment.git`
 
 2. **Generate a pair of SSH keys**  
    Use the `ssh-keygen` command to create a pair of SSH keys in the `.keys` directory, naming them `id_rsa`. This step is important because the automation trusts that the SSH keypair is stored in that directory.  
