@@ -14,12 +14,14 @@
 3. **Initialize the services on AWS using Terraform**  
    The Terraform files are stored in the `init_ec2s` folder.
 
-   `cd ./init_ec2s`  
+   `cd ./init_ec2s`
+   
    `terraform init`
    
    `terraform apply -auto-approve` (you will be prompted to put in your public key as a CLI argument)
    
-   `terraform output -json > "terraform_outputs.json"`   
+   `terraform output -json > "terraform_outputs.json"`
+   
    `cd ..`
 
 
