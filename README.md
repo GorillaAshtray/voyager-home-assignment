@@ -32,7 +32,7 @@
 
    Afterwards, you can use Ansible freely to configure your instances:
 
-   `cd ./configure_ec2s`  
+   `cd ./configure-ec2s`  
    `ansible-playbook -i inventory/hosts.ini playbooks/configure_ec2s.yaml`  
    `cd ..`
 
