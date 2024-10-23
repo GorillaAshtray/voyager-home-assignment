@@ -63,6 +63,11 @@
    `chmod u+x install_minikube.sh`  
    `./install_minikube.sh`
 
+   Then start the cluster:
+   `minikube start --driver=docker`
+   
+   `alias kubectl="minikube kubectl --"`
+   
 
    Then, copy the contents of the `./apache-kubernetes` directory into the node and apply the deployment and service files to the node:
 
