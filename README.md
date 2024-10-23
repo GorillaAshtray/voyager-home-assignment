@@ -1,8 +1,4 @@
-# Voyager Home Assignment
-
-Directory Layout:
-. ├── apache-kubernetes │ ├── apache-deployment.yaml │ └── apache-service.yaml ├── configure-ec2s │ ├── ansible.cfg │ ├── inventory │ │ ├── group_vars │ │ │ └── all.yml │ │ ├── hosts.ini │ │ └── host_vars │ ├── playbooks │ │ └── configure_ec2s.yaml │ └── README.md ├── init_and_config_ec2s.sh ├── init-ec2s │ ├── main.tf │ └── variables.tf ├── README.md └── scripts ├── install_minikube.sh ├── snapshot_ec2.py └── update_ansible_hosts_file.py
-    
+# Voyager Home Assignment    
 
 ## How to Run the Project
 
