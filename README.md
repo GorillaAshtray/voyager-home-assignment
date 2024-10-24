@@ -2,6 +2,10 @@
 
 ## How to Run the Project
 
+## Prerequisites:
+
+
+
 1. **Clone the repository**
    
    `git clone https://github.com/GorillaAshtray/voyager-home-assignment.git`
@@ -20,14 +24,10 @@
 
    Alternatively:
 
-   `cd ./init_ec2s`
-   
-   `terraform init`
-   
+   `cd ./init_ec2s` 
+   `terraform init` 
    `terraform apply -auto-approve` (you will be prompted to put in your public key as a CLI argument)
-   
    `terraform output -json > "terraform_outputs.json"`
-   
    `cd ..`
 
 
