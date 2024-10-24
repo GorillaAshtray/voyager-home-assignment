@@ -12,7 +12,13 @@
    `./.keys/id_rsa` (the full path might be needed)
 
 3. **Initialize the services on AWS using Terraform**  
-   The Terraform files are stored in the `init_ec2s` folder.
+   The Terraform files are stored in the `init-ec2s` folder.
+
+   To initialize the ec2s using terraform, you can run the `run_terraform.sh` script:
+
+   `./run_terraform` from the root of the repo
+
+   Alternatively:
 
    `cd ./init_ec2s`
    
@@ -29,22 +35,21 @@
 
 5. **Configure EC2s on AWS using Ansible**  
 
-   Before running the actual Ansible playbook, you need to run the `update_ansible_hosts_file.py` script using Python 3. This script ensures that the `hosts.ini` file is updated according to the new public IPs of the EC2 instances.
+   To configure the ec2s using ansible, you can run the `run_ansible.sh` script:
 
-   To run the script:
+   `./run_ansible.sh` from the root of the repo
 
-   `python3 ./scripts/update_ansible_hosts_file.py`
 
-   Afterwards, you can use Ansible freely to configure your instances:
+   Alternatively:
+
+   Before running the actual Ansible playbook, the `update_ansible_hosts_file.py` script needs to be executed. This script ensures that the `hosts.ini` file is updated according to the new public IPs of the EC2 instances.
+
+   `python3 ./scripts/update_ansible_hosts_file.py` 
 
    `cd ./configure-ec2s`  
    `ansible-playbook -i inventory/hosts.ini playbooks/configure_ec2s.yaml`  
    `cd ..`
 
-   Alternatively, to initialize and configure the AWS services in one fell swoop, run the following from the root of the repository:
-
-   `chmod u+x ./init_and_config_ec2s.sh`  
-   `./init_and_config_ec2s.sh`
 
 6. **To take a snapshot of an EBS volume, run the following:**
 
