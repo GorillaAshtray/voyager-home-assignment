@@ -19,10 +19,6 @@
  
 ## How to Run the Project
 
-## Prerequisites:
-
-
-
 1. **Clone the repository**
    
    `git clone https://github.com/GorillaAshtray/voyager-home-assignment.git`
