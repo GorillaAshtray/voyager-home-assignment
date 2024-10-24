@@ -1,11 +1,16 @@
 import json
 import os
+import re
 
-TF_DIR="init-ec2s"
-ANSIBLE_INVENTORY_DIR="configure-ec2s/inventory"
+TF_DIR = "init-ec2s"
+ANSIBLE_INVENTORY_DIR = "configure-ec2s/inventory"
 
-output_file = f'{TF_DIR}/terraform_outputs.json' # Path to the Terraform output file
-hosts_file = f'{ANSIBLE_INVENTORY_DIR}/hosts.ini' # Path to the hosts.ini file
+output_file = f'{TF_DIR}/terraform_outputs.json'  # Path to the terraform output file
+hosts_file = f'{ANSIBLE_INVENTORY_DIR}/hosts.ini'  # Path to the hosts.ini file
+
+# Define variables before using them in try and except blocks
+outputs = {}
+existing_hosts = []  
 
 # Load Terraform outputs
 try:
@@ -15,53 +20,25 @@ except (FileNotFoundError, json.JSONDecodeError) as e:
     print(f"Error reading {output_file}: {e}")
     exit(1)
 
-# Get EC2 instance IPs
-ec2_instance_ips = outputs.get('elastic_ips', {}).get('value', [])
+ec2_instance_ips = outputs.get('elastic_ips', {}).get('value', [])  # Get EC2 instance IPs
 
-# Check if there are enough IPs
-if len(ec2_instance_ips) < 2:
-    print("Not enough IPs available to update the hosts file.")
-    exit(1)
-
-# Prepare new hosts entries with the correct ansible hosts file format
-new_hosts_entries = [
-    f"ec2_instance_1 ansible_host={ec2_instance_ips[0]}\n",
-    f"ec2_instance_2 ansible_host={ec2_instance_ips[1]}\n"
-]
-
-# Read existing hosts.ini
-if os.path.exists(hosts_file):
+# Load the hosts.ini file
+try:
     with open(hosts_file, 'r') as f:
         existing_hosts = f.readlines()
-else:
-    existing_hosts = []
+except IOError as e:
+    print(f"Error reading {hosts_file}: {e}")
+    exit(1)
 
-# Update the hosts.ini file
-updated_hosts = []
-in_ec2_section = False
 
-for line in existing_hosts:
-    # If we enter the [ec2_instances] section in the hosts.ini file
-    if line.strip() == "[ec2_instances]":
-        in_ec2_section = True
-        updated_hosts.append(line)  # Add the section header
-        updated_hosts.extend(new_hosts_entries)  # Add new IP entries
-        continue  # Skip to the next line
+hosts_content = ''.join(existing_hosts)  # Combine lines to a single string (necessary for the re module)
 
-    # If we exit the [ec2_instances] section
-    if in_ec2_section:
-        if line.strip() == "":  # Empty line indicates end of section
-            in_ec2_section = False
-            updated_hosts.append(line)  # Add the empty line back
-            continue
-        # Skip over old entries in the [ec2_instances] section
-        continue
+# Use regex to replace the IPs for ec2_instance_1 and ec2_instance_2
+hosts_content = re.sub(r'(?<=ec2_instance_1 ansible_host=)(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})', ec2_instance_ips[0], hosts_content)
+hosts_content = re.sub(r'(?<=ec2_instance_2 ansible_host=)(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})', ec2_instance_ips[1], hosts_content)
 
-    # For lines outside the [ec2_instances] section
-    updated_hosts.append(line)
-
-# Write the updated hosts back to the file
+# Write the updated content back to the hosts.ini file
 with open(hosts_file, 'w') as f:
-    f.writelines(updated_hosts)
+    f.write(hosts_content)
 
-print(f"Updated {hosts_file} with new EC2 instance entries.")
+print(f"Updated {hosts_file} with new EC2 instance IPs.")

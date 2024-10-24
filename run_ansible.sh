@@ -1,11 +1,25 @@
 #!/bin/bash
 
-# Automatic bash script that runs the ansible part of the assignment
+# Automatic bash script that runs the ansible part of the assignment (configuring the ec2 instances)
 
-ANSIBLE_DIR="configure-ec2s"
+ANSIBLE_DIR="./configure-ec2s"
+UPDATE_ANSIBLE_HOSTS_SCRIPT_PATH="./scripts/update_ansible_hosts_file.py"
 
-python3 ./scripts/update_ansible_hosts_file.py  # Run python script that changes the ip addresses in the hosts.ini file
+# Check the Python script exists
+if [ -f "$UPDATE_ANSIBLE_HOSTS_SCRIPT_PATH" ]; then
+    python3 "$UPDATE_ANSIBLE_HOSTS_SCRIPT_PATH"   # Run the Python script that changes the IP addresses in the hosts.ini file
 
-cd $ANSIBLE_DIR  # cd into the ansible directory 
-ansible-playbook -i inventory/hosts.ini playbooks/configure_ec2s.yaml  # run playbook with the hosts.ini file as the inventory
-cd ..
+else
+    echo "Error: Python script $PYTHON_SCRIPT does not exist."
+    exit 1
+fi
+
+# Check if the Ansible directory exists
+if [ -d "$ANSIBLE_DIR" ]; then
+    cd "$ANSIBLE_DIR" 
+    ansible-playbook -i inventory/hosts.ini playbooks/configure_ec2s.yaml  # run playbook with the hosts.ini file as the inventory
+    cd ..  # Return to previous directory
+else
+    echo "Error: Directory $ANSIBLE_DIR does not exist."
+    exit 1
+fi

@@ -23,17 +23,16 @@ def delete_old_snapshots(volume_id, keep_count):
 
     try:
         # Describe snapshots and filter by volume ID
-        snapshots = ec2.describe_snapshots(
-            Filters=[{'Name': 'volume-id', 'Values': [volume_id]}]
-        )['Snapshots']
+        snapshots = ec2.describe_snapshots(Filters=[{'Name': 'volume-id', 'Values': [volume_id]}])['Snapshots']
 
         # Sort snapshots by creation time
         snapshots = sorted(snapshots, key=lambda s: s['StartTime'], reverse=False)
 
         # If there are more snapshots than the 'keep_count', delete the oldest
         if len(snapshots) > keep_count:
-            to_delete = snapshots[:len(snapshots) - keep_count]  # Older snapshots to delete
+            to_delete = snapshots[:len(snapshots) - keep_count]  # List of older snapshots to delete
             for snapshot in to_delete:
+                # deleting of said snapshots
                 snapshot_id = snapshot['SnapshotId']
                 ec2.delete_snapshot(SnapshotId=snapshot_id)
                 print(f"Deleted snapshot: {snapshot_id}")
@@ -55,5 +54,5 @@ if __name__ == '__main__':
     # Create a new snapshot
     create_snapshot(volume_id, snapshot_name)
 
-    # Clean up old snapshots
+    # Delete old snapshots
     delete_old_snapshots(volume_id, keep_count)
