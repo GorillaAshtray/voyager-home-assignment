@@ -2,6 +2,20 @@
 
 ## How to Run the Project
 
+## Prerequisites:
+
+**0.1** **Download the following packages:**
+
+terraform
+ansible
+python3
+git
+aws-cli
+
+**0.2** **Configure your AWS credentials using the `aws configure` command**
+
+
+
 1. **Clone the repository**
    
    `git clone https://github.com/GorillaAshtray/voyager-home-assignment.git`
