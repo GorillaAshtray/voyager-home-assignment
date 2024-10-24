@@ -13,9 +13,10 @@
 **0.2** **Configure your AWS credentials:**
 - `aws configure`
 
-**0.3** **Install the necessary pip packages**
+**0.3** **Install the necessary pip packages:**
 - `pip3 install -r requirements.txt`
-
+ 
+ 
 ## How to Run the Project
 
 1. **Clone the repository**
