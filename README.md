@@ -1,5 +1,22 @@
 # Voyager Home Assignment    
 
+## Prerequisites:
+
+**0.1** **Download the following packages:**
+
+- terraform
+- ansible
+- python3
+- git
+- aws-cli
+
+**0.2** **Configure your AWS credentials:**
+- `aws configure`
+
+**0.3** **Install the necessary pip packages:**
+- `pip3 install -r requirements.txt`
+ 
+ 
 ## How to Run the Project
 
 ## Prerequisites:
