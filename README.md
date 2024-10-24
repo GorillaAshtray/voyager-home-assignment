@@ -6,11 +6,11 @@
 
 **0.1** **Download the following packages:**
 
-terraform
-ansible
-python3
-git
-aws-cli
+- terraform
+- ansible
+- python3
+- git
+- aws-cli
 
 **0.2** **Configure your AWS credentials using the `aws configure` command**
 
